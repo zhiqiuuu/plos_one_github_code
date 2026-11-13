@@ -1,0 +1,7 @@
+stage,n_unweighted,retained_from_raw_pct,matches_processed_base
+raw_teacher_records,278383,100.0,False
+ai_module_administered,89833,32.269571058577576,False
+valid_training_usage_and_weight,84770,30.45085368000201,True
+at_least_one_valid_utility_item,72000,25.86364828312074,False
+at_least_two_valid_utility_items,67286,24.17029775525086,False
+all_three_utility_items_valid,60447,21.713610385691656,False

@@ -1,0 +1,6 @@
+role,source_variable,question_anchor,valid_codes,analysis_coding,questionnaire_page
+X,TT4G21G,Q21g: Using artificial intelligence for teaching and learning,1=Yes; 2=No,1->1; 2->0; 6/9->missing,12
+M_item_1,TT4G35A,Q35a: AI helps teachers write or improve lesson plans,1-4 agreement,retain 1-4; 5=I do not know and 8/9->missing,22
+M_item_2,TT4G35B,Q35b: AI enables adaptation to students' abilities,1-4 agreement,retain 1-4; 5=I do not know and 8/9->missing,22
+M_item_3,TT4G35C,Q35c: AI assists teachers in supporting students individually,1-4 agreement,retain 1-4; 5=I do not know and 8/9->missing,22
+Y,TT4G36,Q36: AI use in teaching or to facilitate student learning in last 12 months,1=Yes; 2=No,1->1; 2->0; 8/9->missing,22

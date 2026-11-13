@@ -1,0 +1,5 @@
+TALIS2024_teachers_NoESE_CSV/
+data/processed/data_recoded.csv
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/

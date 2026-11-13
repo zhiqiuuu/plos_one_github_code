@@ -1,0 +1,5 @@
+artifact,status
+B01/main_paths_brr.csv,final_design_adjusted_association_paths
+B03/missing_data_sensitivity.csv,sensitivity
+B03/multiple_imputation_rubin_pooled.csv,sensitivity_not_BRR_combined
+B02/association_only_decision.md,author_decision_pending_for_quantitative_mediation

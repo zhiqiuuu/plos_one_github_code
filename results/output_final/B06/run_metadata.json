@@ -1,0 +1,10 @@
+{
+  "analysis_timestamp_utc": "2026-11-13T18:16:36.197121+00:00",
+  "processed_records": 84770,
+  "primary_records": 72000,
+  "education_systems_primary": 55,
+  "brr_replicate_failures": 0,
+  "n_imputations": 20,
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "primary_claim_scope": "association only; no final quantitative indirect effect"
+}

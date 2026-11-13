@@ -4,6 +4,7 @@ Expected input: TALIS2024_teachers_NoESE_CSV/ttgintt4.csv
 Output: data/processed/data_recoded.csv
 """
 
+import argparse
 from pathlib import Path
 
 import numpy as np
@@ -11,7 +12,6 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUT_FILE = ROOT / "TALIS2024_teachers_NoESE_CSV" / "ttgintt4.csv"
 OUTPUT_FILE = ROOT / "data" / "processed" / "data_recoded.csv"
 
 CORE_VARIABLES = [
@@ -32,11 +32,19 @@ def recode_capability_item(series: pd.Series) -> pd.Series:
     return series.replace({5: np.nan, 8: np.nan, 9: np.nan})
 
 
-def main() -> None:
-    if not INPUT_FILE.exists():
-        raise FileNotFoundError(f"Raw TALIS file not found: {INPUT_FILE}")
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input-file", type=Path, required=True, help="Authorised TALIS ttgintt4.csv")
+    parser.add_argument("--output-file", type=Path, default=OUTPUT_FILE)
+    return parser.parse_args()
 
-    data = pd.read_csv(INPUT_FILE, sep=";", usecols=CORE_VARIABLES, low_memory=False)
+
+def main() -> None:
+    args = parse_args()
+    if not args.input_file.exists():
+        raise FileNotFoundError(f"Raw TALIS file not found: {args.input_file}")
+
+    data = pd.read_csv(args.input_file, sep=";", usecols=CORE_VARIABLES, low_memory=False)
 
     # Code 8 means that the AI module was not administered. Keep administered cases.
     data = data.loc[(data["TT4G36"] != 8) & (data["TT4G35B"] != 8)].copy()
@@ -51,9 +59,9 @@ def main() -> None:
 
     # Retain partial mediator responses for the later missing-data sensitivity analyses.
     cleaned = data.dropna(subset=["ai_training", "ai_usage", "TCHWGT"]).copy()
-    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    cleaned.to_csv(OUTPUT_FILE, index=False)
-    print(f"Saved {len(cleaned):,} records to {OUTPUT_FILE}")
+    args.output_file.parent.mkdir(parents=True, exist_ok=True)
+    cleaned.to_csv(args.output_file, index=False)
+    print(f"Saved {len(cleaned):,} records to {args.output_file}")
 
 
 if __name__ == "__main__":
