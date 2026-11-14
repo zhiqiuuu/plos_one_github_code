@@ -69,7 +69,6 @@ def main() -> None:
         ],
         check=True,
     )
-    update_public_manifest(output_dir)
     subprocess.run(
         [
             sys.executable,
@@ -117,6 +116,7 @@ def main() -> None:
         ],
         check=True,
     )
+    update_public_manifest(output_dir)
     subprocess.run(
         [
             sys.executable,
