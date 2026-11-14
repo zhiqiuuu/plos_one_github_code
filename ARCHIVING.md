@@ -1,11 +1,12 @@
 # Release and archival checklist
 
-This repository is prepared for a public code release, but it does not yet have
-a permanent archive DOI. A GitHub commit hash alone is not a DOI.
+The public release branch is `code-release-v0.2.0`. The reproducibility
+release is fixed by annotated tag `v0.2.0` at commit `cef4ffa`. It does not yet
+have a permanent archive DOI; a GitHub commit hash or tag alone is not a DOI.
 
 1. Confirm that no restricted TALIS row-level file or linkage key has been added.
-2. Create a GitHub Release from the annotated tag `v0.2.0` after the full raw-data
-   reproduction run and release tests pass.
+2. Create a GitHub Release from the already-pushed annotated tag `v0.2.0` after
+   confirming the release branch and tests.
 3. Connect the repository to Zenodo, archive that release, and insert the minted
    DOI into this file, `CITATION.cff`, and the manuscript Data/Code Availability
    statement.
