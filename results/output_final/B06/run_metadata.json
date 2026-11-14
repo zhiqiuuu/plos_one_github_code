@@ -1,0 +1,26 @@
+{
+  "analysis_timestamp_utc": "2026-11-14T11:07:38.322915+00:00",
+  "processed_records": 84770,
+  "primary_records": 72000,
+  "education_systems_primary": 55,
+  "brr_replicate_failures": 0,
+  "n_imputations": 20,
+  "imputation_seed": 20261114,
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "git_revision": "e39b088b52a882a2a51d59b751c8cdaac7df7459",
+  "git_worktree_status": "M .gitignore\n M README.md\n M code/export_public_aggregates.py\n M code/generate_design_adjusted_figure.py\n M code/run_all.py\n M code/run_revision_package.py\n M tests/test_release_outputs.py\n M \"\\345\\256\\241\\347\\250\\277\\346\\204\\217\\350\\247\\201\\350\\241\\245\\345\\205\\205\\345\\256\\236\\351\\252\\214\\344\\270\\216\\345\\220\\214\\346\\255\\245\\350\\257\\264\\346\\230\\216.md\"\n?? ARCHIVING.md\n?? CITATION.cff\n?? \"PLOS_ONE_\\346\\212\\200\\346\\234\\257\\350\\241\\245\\350\\257\\201\\344\\273\\273\\345\\212\\241\\344\\271\\246_B01-B06_\\345\\217\\257\\347\\233\\264\\346\\216\\245\\350\\275\\254\\345\\217\\221.docx\"\n?? VERSION",
+  "source_file_sha256": {
+    "code/01_data_preparation.py": "a30150f6a9aa1ac42b61ae7561e87e80862cf690f5cdd17f7fa369539b8a3638",
+    "code/run_all.py": "8b6f8dd815051cf57fc3ed394f4cb49e66b303d19e6f4b5e63250ffaefcf844c",
+    "code/run_revision_package.py": "0389a34d79017b6db00c83f04e0587ac65137426fe1e58fcd424dff3f68cb21f",
+    "code/generate_design_adjusted_figure.py": "124f5f764a2aa36ae299aa1aefa119e79fb473a2260d1f6de29ebe304824f901",
+    "code/export_public_aggregates.py": "8331300a56c9e998b57d7ac6a7a222ce82f13c3e53d41d5bc9e61dcffee89720",
+    "environment/requirements.lock": "b8c14999ff34b9cbb525e68c6b47f4fd84c646d6821a597fe04878bcc96a24ea"
+  },
+  "run_mode": "full_raw_to_results",
+  "raw_file_name": "ttgintt4.csv",
+  "raw_file_bytes": 635466505,
+  "raw_file_sha256": "ae069c728b7aae58feab71f6449a2927dcf0453dec023d8d99e5c689f5b1c100",
+  "primary_claim_scope": "association only; no final quantitative indirect effect"
+}

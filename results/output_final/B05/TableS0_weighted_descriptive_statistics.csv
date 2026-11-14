@@ -1,0 +1,4 @@
+variable,label,n_unweighted,weighted_population_sum,weighted_mean,weighted_sd,education_systems,inference_class
+ai_training,AI-related professional learning (1=yes),72000,2250877.389733,0.44488235497882167,0.4969527595328547,55,weighted descriptive statistic; no confidence interval reported
+ai_usage,AI use in teaching or student learning (1=yes),72000,2250877.389733,0.48099664594766134,0.4996387420274387,55,weighted descriptive statistic; no confidence interval reported
+mediator,Perceived utility composite (1-4),72000,2250877.389733,2.902023122631011,0.7091221817795632,55,weighted descriptive statistic; no confidence interval reported

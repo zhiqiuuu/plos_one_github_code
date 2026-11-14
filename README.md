@@ -1,6 +1,6 @@
-# PLOS ONE revision-analysis code
+# PLOS ONE revision-analysis code and public outputs
 
-This code-only release contains the executable analysis scripts, tests, dependency lock file, and reproducibility instructions for the TALIS 2024 revision. It deliberately does not contain data, figures, result tables, restricted teacher microdata, or row-level linkage keys. Authorised users must obtain the original TALIS teacher data through the OECD route.
+This public release contains executable analysis scripts, tests, dependency information, non-identifying aggregate result tables, figures, and a reproducibility audit for the TALIS 2024 revision. It deliberately excludes the restricted TALIS teacher microdata, any row-level derived file, teacher or school identifiers, and row-level linkage keys. Authorised users must obtain the original TALIS teacher data through the OECD route.
 
 ## Scope of the final package
 
@@ -14,7 +14,7 @@ This code-only release contains the executable analysis scripts, tests, dependen
 2. Run `python code/run_all.py --raw-file <path-to-ttgintt4.csv> --run-dir results/release_v0.2.0`. The entry point prepares the derived analysis file, runs the supplementary analyses, and renders the figure. A full run performs 100 Fay-BRR replicates for the primary analysis, item-completeness analyses, and each of 20 multiply imputed datasets.
 3. Inspect `<run-dir>/output/B01/reproduction.log`, `<run-dir>/output/B06/run_metadata.json`, and `<run-dir>/output/B05/release_manifest.csv`. The metadata records the code revision, software environment, external raw-file checksum, sample counts, and run mode without publishing the restricted data. The temporary `<run-dir>/restricted_working` directory is ignored by Git.
 
-After a local run, audit-ready outputs are organised as `<run-dir>/output/B01` through `<run-dir>/output/B06`. Raw data, respondent identifiers, and any absolute local paths are excluded from this release.
+The public aggregate outputs are in `results/output_final/B01` through `B06`, with Figure 1 in `figures/`. A fresh local run writes the same structure below `<run-dir>/output`. Raw data, respondent identifiers, and any absolute local paths are excluded from this release.
 
 ## Inference labels
 

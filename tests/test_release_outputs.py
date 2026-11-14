@@ -22,7 +22,17 @@ def test_release_files_exclude_restricted_row_level_data() -> None:
     release_names = {path.name for path in ROOT.rglob("*") if path.is_file()}
     assert forbidden_names.isdisjoint(release_names)
     assert not (ROOT / "data").exists()
-    assert not (ROOT / "results").exists()
+
+
+def test_public_results_are_aggregate_and_present() -> None:
+    output = ROOT / "results" / "output_final"
+    assert (output / "B05" / "Table2_design_adjusted_association_paths.csv").exists()
+    assert (ROOT / "figures" / "Fig1_design_adjusted_association_paths.png").exists()
+    forbidden_columns = {"IDCNTRY", "IDSCHOOL", "IDTEACH"}
+    for table in output.rglob("*.csv"):
+        header = table.read_text(encoding="utf-8").splitlines()
+        if header:
+            assert forbidden_columns.isdisjoint(set(header[0].split(",")))
 
 
 def test_version_and_archival_instructions_exist() -> None:

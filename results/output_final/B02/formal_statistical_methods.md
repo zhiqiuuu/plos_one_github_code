@@ -1,0 +1,9 @@
+# Statistical methods: association-path analysis
+
+The analysis estimates four cross-sectional association paths, rather than a causal or quantitative mediation effect. AI-related professional learning (TT4G21G) was coded 1 for Yes and 0 for No. The perceived-utility score was the mean of observed TT4G35A-C responses coded 1-4. AI use (TT4G36) was coded 1 for Yes and 0 for No. Teachers with valid exposure, outcome, and final teacher weight were retained; the primary available-item analysis required at least one valid perceived-utility item.
+
+The a path was estimated by weighted linear regression of the utility score on professional learning and education-system fixed effects. The c path was estimated by weighted logistic regression of AI use on professional learning and the same fixed effects. The b and c-prime paths were estimated jointly by weighted logistic regression of AI use on professional learning, utility, and fixed effects. Final teacher weights (TCHWGT) were used for point estimation.
+
+For complete/available-item analyses, standard errors and 95% confidence intervals use all 100 teacher replicate weights with Fay's balanced repeated replication (Fay factor 0.5). Sensitivity analyses compare at-least-one, at-least-two, and all-three valid utility items. The MNAR delta scenarios report point estimates only. Twenty chained-equation predictive-mean-matching imputations were also analysed with all 100 replicate weights within each imputation for paths involving the imputed mediator; within-imputation Fay-BRR variance and between-imputation variance were combined using Rubin's rules. The c path does not use the mediator and retains its direct Fay-BRR interval.
+
+Because the outcome model is logistic and the data are cross-sectional, no product-of-coefficients, proportion-mediated, or causal indirect effect is reported.

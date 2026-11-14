@@ -1,0 +1,10 @@
+artifact,status
+B05/TableS0_weighted_descriptive_statistics.csv,weighted descriptive statistics; no CI
+B05/TableS1_primary_design_adjusted_paths.csv,Fay-BRR 95% CI
+B05/TableS2_weighting_and_fixed_effects_comparison.csv,point estimates only
+B05/TableS3_missingness_and_complete_case_sensitivity.csv,BRR CI for item-completeness analyses; MNAR point estimates only
+B05/TableS4_multiple_imputation_design_brr.csv,MI plus Fay-BRR combined 95% CI
+B01/main_paths_brr.csv,final_design_adjusted_association_paths
+B03/missing_data_sensitivity.csv,sensitivity
+B03/multiple_imputation_design_brr.csv,sensitivity_design_variance_combined
+B02/association_only_decision.md,author_decision_pending_for_quantitative_mediation
