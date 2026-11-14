@@ -94,6 +94,8 @@ def source_manifest() -> dict[str, str]:
         ROOT / "code" / "01_data_preparation.py",
         ROOT / "code" / "run_all.py",
         ROOT / "code" / "run_revision_package.py",
+        ROOT / "code" / "run_khb_design.py",
+        ROOT / "code" / "run_nonresponse_indicator.py",
         ROOT / "code" / "generate_design_adjusted_figure.py",
         ROOT / "code" / "export_public_aggregates.py",
         ROOT / "environment" / "requirements.lock",

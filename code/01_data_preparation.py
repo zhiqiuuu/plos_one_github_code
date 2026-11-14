@@ -21,6 +21,9 @@ CORE_VARIABLES = [
     "T4TAGEGR", "TT4G04", "T4TYEXPE",
 ]
 
+VALID_UTILITY_CODES = [1, 2, 3, 4]
+OTHER_UTILITY_SPECIAL_CODES = [8, 9]
+
 
 def recode_binary(series: pd.Series) -> pd.Series:
     """Map TALIS yes/no items (1/2) to 1/0 and special codes to missing."""
@@ -29,7 +32,21 @@ def recode_binary(series: pd.Series) -> pd.Series:
 
 def recode_capability_item(series: pd.Series) -> pd.Series:
     """Keep valid 1-4 capability responses; code 5, 8, and 9 as missing."""
-    return series.replace({5: np.nan, 8: np.nan, 9: np.nan})
+    return series.where(series.isin(VALID_UTILITY_CODES), np.nan)
+
+
+def add_nonresponse_indicators(data: pd.DataFrame) -> pd.DataFrame:
+    """Create Q35 nonresponse indicators directly from the retained raw items."""
+    raw_items = ["TT4G35A", "TT4G35B", "TT4G35C"]
+    result = data.copy()
+    for suffix, item in zip(("A", "B", "C"), raw_items, strict=True):
+        result[f"DK_{suffix}"] = result[item].eq(5).astype("int8")
+    result["DK_COUNT"] = result[["DK_A", "DK_B", "DK_C"]].sum(axis=1).astype("int8")
+    result["DK_ANY"] = result["DK_COUNT"].gt(0).astype("int8")
+    result["N_VALID"] = result[raw_items].isin(VALID_UTILITY_CODES).sum(axis=1).astype("int8")
+    result["NO_VALID"] = result["N_VALID"].eq(0).astype("int8")
+    result["OTHER_MISSING_ANY"] = result[raw_items].isin(OTHER_UTILITY_SPECIAL_CODES).any(axis=1).astype("int8")
+    return result
 
 
 def parse_args() -> argparse.Namespace:
@@ -49,6 +66,7 @@ def main() -> None:
     # Code 8 means that the AI module was not administered. Keep administered cases.
     data = data.loc[(data["TT4G36"] != 8) & (data["TT4G35B"] != 8)].copy()
 
+    data = add_nonresponse_indicators(data)
     data["ai_training"] = recode_binary(data["TT4G21G"])
     data["ai_usage"] = recode_binary(data["TT4G36"])
     data["perceived_lesson"] = recode_capability_item(data["TT4G35A"])
