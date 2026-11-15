@@ -1,0 +1,26 @@
+{
+  "analysis_timestamp_utc": "2026-11-15T15:32:18.119339+00:00",
+  "run_mode": "descriptives_only_from_raw_rebuilt_processed_file",
+  "processed_records": 84770,
+  "primary_records": 72000,
+  "education_systems_primary": 55,
+  "point_estimation_weight": "TCHWGT",
+  "variance_inference": "not applicable; descriptive table reports no confidence interval",
+  "raw_file_name": "ttgintt4.csv",
+  "raw_file_bytes": 635466505,
+  "raw_file_sha256": "ae069c728b7aae58feab71f6449a2927dcf0453dec023d8d99e5c689f5b1c100",
+  "processed_file_sha256": "24217ca5dbc67228c8d57cdc4d4d51ac9decbc2c22a2a8838ef9d85148facebd",
+  "table_file_sha256": "1f8d2ec444d9d00b96307c779c28e7416024ebf971687660cdf5e6d21e5726d5",
+  "git_revision": "eec134bbedfb9ab043909a42b199fc25065cca90",
+  "git_worktree_status": "clean",
+  "source_file_sha256": {
+    "code/01_data_preparation.py": "6e57f759dd187055c29349322315a217bd798dae5b3e11394ad0b893786865fc",
+    "code/run_all.py": "6260e573b45b1ded82706972ee2105027dc366b5c38825d088c00d5c78dd9cc0",
+    "code/run_revision_package.py": "304f7c71b8df85380831868821bc040176513c732ed7d0181fce32368dcb1c8e",
+    "code/run_khb_design.py": "faa3df54c5a4b407f6a347f0c7e4cee841e07220e91d16c59f014e0b758dacbc",
+    "code/run_nonresponse_indicator.py": "e2b4df219c9676921c4b4a8331e94229948d7cd84b91e4794462bf7e3fedac83",
+    "code/generate_design_adjusted_figure.py": "124f5f764a2aa36ae299aa1aefa119e79fb473a2260d1f6de29ebe304824f901",
+    "code/export_public_aggregates.py": "8331300a56c9e998b57d7ac6a7a222ce82f13c3e53d41d5bc9e61dcffee89720",
+    "environment/requirements.lock": "b8c14999ff34b9cbb525e68c6b47f4fd84c646d6821a597fe04878bcc96a24ea"
+  }
+}
