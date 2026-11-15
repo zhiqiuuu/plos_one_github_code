@@ -48,6 +48,27 @@ def test_public_results_are_aggregate_and_present() -> None:
             assert forbidden_columns.isdisjoint(set(header[0].split(",")))
 
 
+def test_table_s0_reports_q35_items_and_composite_distribution_shape() -> None:
+    table = pd.read_csv(ROOT / "results" / "output_final" / "B05" / "TableS0_weighted_descriptive_statistics.csv")
+    required_variables = {"TT4G35A", "TT4G35B", "TT4G35C", "mediator"}
+    required_columns = {
+        "weighted_mean",
+        "weighted_sd",
+        "weighted_skewness",
+        "weighted_excess_kurtosis",
+    }
+    assert required_variables.issubset(set(table["variable"]))
+    assert required_columns.issubset(table.columns)
+    rows = table.loc[table["variable"].isin(required_variables)]
+    assert rows["n_unweighted"].le(72000).all()
+    assert rows.loc[rows["variable"].eq("mediator"), "n_unweighted"].item() == 72000
+    for column in required_columns:
+        assert rows[column].map(math.isfinite).all()
+    note = ROOT / "results" / "output_final" / "B05" / "TableS0_weighted_descriptive_statistics_note.md"
+    assert note.exists()
+    assert "excess kurtosis" in note.read_text(encoding="utf-8")
+
+
 def test_published_khb_brr_recalculates_and_obeys_identities() -> None:
     output = ROOT / "results" / "output_final" / "B02"
     summary = pd.concat(

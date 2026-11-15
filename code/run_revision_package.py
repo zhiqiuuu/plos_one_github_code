@@ -53,6 +53,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-imputations", type=int, default=20)
     parser.add_argument("--seed", type=int, default=20261114, help="Random seed for chained-equation imputation")
     parser.add_argument("--reuse-brr", action="store_true", help="Reuse completed B01/B03 BRR outputs")
+    parser.add_argument(
+        "--descriptives-only",
+        action="store_true",
+        help="Write only the weighted Table S0 descriptive statistics and provenance metadata",
+    )
     return parser.parse_args()
 
 
@@ -361,31 +366,156 @@ def item_diagnostics(data: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values("valid_item_count")
 
 
+def weighted_distribution_moments(values: pd.Series, weights: pd.Series) -> dict[str, float]:
+    """Return TCHWGT-weighted central moments using the population denominator."""
+    valid = pd.DataFrame({"value": values, "weight": weights}).dropna()
+    if valid.empty:
+        return {
+            "weighted_mean": float("nan"),
+            "weighted_sd": float("nan"),
+            "weighted_skewness": float("nan"),
+            "weighted_excess_kurtosis": float("nan"),
+        }
+    value = valid["value"].to_numpy(dtype=float)
+    weight = valid["weight"].to_numpy(dtype=float)
+    if float(weight.sum()) <= 0:
+        raise ValueError("Descriptive-statistic weights must sum to a positive value.")
+    mean = float(np.average(value, weights=weight))
+    centered = value - mean
+    second_moment = float(np.average(centered**2, weights=weight))
+    sd = float(math.sqrt(max(second_moment, 0.0)))
+    if np.isclose(sd, 0.0):
+        skewness = float("nan")
+        excess_kurtosis = float("nan")
+    else:
+        skewness = float(np.average(centered**3, weights=weight) / sd**3)
+        excess_kurtosis = float(np.average(centered**4, weights=weight) / sd**4 - 3.0)
+    return {
+        "weighted_mean": mean,
+        "weighted_sd": sd,
+        "weighted_skewness": skewness,
+        "weighted_excess_kurtosis": excess_kurtosis,
+    }
+
+
 def weighted_descriptives(data: pd.DataFrame) -> pd.DataFrame:
-    """Create the public S0 table without retaining respondent-level values."""
+    """Create public TCHWGT-weighted Table S0 without retaining respondent-level values."""
     work = data.copy()
     work[MEDIATOR] = work[ITEMS].mean(axis=1)
     variables = [
-        (X, "AI-related professional learning (1=yes)"),
-        (Y, "AI use in teaching or student learning (1=yes)"),
-        (MEDIATOR, "Perceived utility composite (1-4)") ,
+        {
+            "variable": X,
+            "data_column": X,
+            "source_variable": "TT4G21G",
+            "label": "AI-related professional learning (1=yes)",
+            "response_scale": "0-1",
+            "valid_response_rule": "recoded valid TT4G21G response",
+        },
+        {
+            "variable": Y,
+            "data_column": Y,
+            "source_variable": "TT4G36",
+            "label": "AI use in teaching or student learning (1=yes)",
+            "response_scale": "0-1",
+            "valid_response_rule": "recoded valid TT4G36 response",
+        },
+        {
+            "variable": "TT4G35A",
+            "data_column": "perceived_lesson",
+            "source_variable": "TT4G35A",
+            "label": "Perceived utility: planning or preparation (1-4)",
+            "response_scale": "1-4",
+            "valid_response_rule": "valid response 1-4; source codes 5, 8, and 9 excluded",
+        },
+        {
+            "variable": "TT4G35B",
+            "data_column": "perceived_adapt",
+            "source_variable": "TT4G35B",
+            "label": "Perceived utility: adapting teaching (1-4)",
+            "response_scale": "1-4",
+            "valid_response_rule": "valid response 1-4; source codes 5, 8, and 9 excluded",
+        },
+        {
+            "variable": "TT4G35C",
+            "data_column": "perceived_individual",
+            "source_variable": "TT4G35C",
+            "label": "Perceived utility: individualising learning (1-4)",
+            "response_scale": "1-4",
+            "valid_response_rule": "valid response 1-4; source codes 5, 8, and 9 excluded",
+        },
+        {
+            "variable": MEDIATOR,
+            "data_column": MEDIATOR,
+            "source_variable": "TT4G35A-C",
+            "label": "Perceived utility available-item composite (1-4)",
+            "response_scale": "1-4",
+            "valid_response_rule": "mean of observed valid TT4G35A-C responses; at least one valid item",
+        },
     ]
     rows: list[dict[str, object]] = []
-    for variable, label in variables:
-        valid = work.loc[work[variable].notna() & work[W].notna(), [variable, W]]
-        mean = weighted_mean(valid[variable], valid[W])
-        variance = np.average((valid[variable] - mean) ** 2, weights=valid[W])
-        rows.append({
-            "variable": variable,
-            "label": label,
-            "n_unweighted": int(len(valid)),
-            "weighted_population_sum": float(valid[W].sum()),
-            "weighted_mean": mean,
-            "weighted_sd": float(math.sqrt(variance)),
-            "education_systems": int(work.loc[valid.index, "CNTRY"].nunique()),
-            "inference_class": "weighted descriptive statistic; no confidence interval reported",
-        })
+    for specification in variables:
+        data_column = str(specification["data_column"])
+        valid = work.loc[work[data_column].notna() & work[W].notna(), [data_column, W]]
+        rows.append(
+            {
+                "variable": specification["variable"],
+                "source_variable": specification["source_variable"],
+                "label": specification["label"],
+                "response_scale": specification["response_scale"],
+                "valid_response_rule": specification["valid_response_rule"],
+                "n_unweighted": int(len(valid)),
+                "weighted_population_sum": float(valid[W].sum()),
+                **weighted_distribution_moments(valid[data_column], valid[W]),
+                "education_systems": int(work.loc[valid.index, "CNTRY"].nunique()),
+                "inference_class": "weighted descriptive statistic; no confidence interval reported",
+            }
+        )
     return pd.DataFrame(rows)
+
+
+def write_weighted_descriptive_note(folder: Path) -> None:
+    """Document the Table S0 sample and distribution-statistic conventions."""
+    (folder / "TableS0_weighted_descriptive_statistics_note.md").write_text(
+        "# Table S0 weighted descriptive-statistics note\n\n"
+        "All point estimates use the final TALIS teacher weight (`TCHWGT`) in the primary available-item "
+        "sample: valid recoded exposure and outcome, a final teacher weight, and at least one valid "
+        "TT4G35A-C item. Each TT4G35 item row further restricts to a valid response coded 1-4 for that "
+        "item; source codes 5, 8, and 9 are excluded from that item's summary. The composite is the "
+        "mean of the observed valid TT4G35A-C items and therefore is not restricted to three-item "
+        "complete cases.\n\n"
+        "For each row, the weighted mean is the `TCHWGT`-weighted mean. The weighted SD is the square "
+        "root of the weighted second central moment using the population denominator. Weighted skewness "
+        "is the weighted third central moment divided by SD cubed. `weighted_excess_kurtosis` is the "
+        "weighted fourth central moment divided by SD to the fourth power, minus 3 (Pearson excess "
+        "kurtosis). These are descriptive point estimates only; no confidence interval is reported.\n",
+        encoding="utf-8",
+    )
+
+
+def write_descriptive_run_metadata(
+    folders: dict[str, Path], args: argparse.Namespace, processed: pd.DataFrame, primary: pd.DataFrame, table_file: Path
+) -> None:
+    """Record aggregate-only provenance for a focused Table S0 refresh."""
+    metadata = {
+        "analysis_timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "run_mode": "descriptives_only_from_raw_rebuilt_processed_file",
+        "processed_records": int(len(processed)),
+        "primary_records": int(len(primary)),
+        "education_systems_primary": int(primary["CNTRY"].nunique()),
+        "point_estimation_weight": W,
+        "variance_inference": "not applicable; descriptive table reports no confidence interval",
+        "raw_file_name": args.raw_file.name,
+        "raw_file_bytes": args.raw_file.stat().st_size,
+        "raw_file_sha256": sha256_file(args.raw_file),
+        "processed_file_sha256": sha256_file(args.processed_file),
+        "table_file_sha256": sha256_file(table_file),
+        "git_revision": git_revision(),
+        "git_worktree_status": git_worktree_status(),
+        "source_file_sha256": source_manifest(),
+    }
+    (folders["B06"] / "weighted_descriptives_run_metadata.json").write_text(
+        json.dumps(metadata, indent=2), encoding="utf-8"
+    )
 
 
 def make_mnar_composite(data: pd.DataFrame, delta: float) -> pd.Series:
@@ -656,13 +786,27 @@ def main() -> None:
     folders = make_dirs(args.output_dir)
     log_file = folders["B01"] / "reproduction.log"
     log_file.write_text("", encoding="utf-8")
-    run_mode = "reuse_brr" if args.reuse_brr else "full_raw_to_results"
+    run_mode = (
+        "descriptives_only_from_raw_rebuilt_processed_file"
+        if args.descriptives_only
+        else "reuse_brr"
+        if args.reuse_brr
+        else "full_raw_to_results"
+    )
     write_log(log_file, f"started revision analysis package; run_mode={run_mode}")
     write_log(log_file, "raw input is external restricted TALIS teacher microdata; no row-level data will be written")
 
     write_log(log_file, "reading derived working file")
     processed = pd.read_csv(args.processed_file)
     processed["valid_item_count"] = processed[ITEMS].notna().sum(axis=1)
+    if args.descriptives_only:
+        primary = processed.loc[processed["valid_item_count"].ge(1)].copy()
+        table_file = folders["B05"] / "TableS0_weighted_descriptive_statistics.csv"
+        weighted_descriptives(primary).to_csv(table_file, index=False)
+        write_weighted_descriptive_note(folders["B05"])
+        write_descriptive_run_metadata(folders, args, processed, primary, table_file)
+        write_log(log_file, "completed focused Table S0 weighted descriptive-statistics refresh")
+        return
     coding_audit().to_csv(folders["B04"] / "coding_audit.csv", index=False)
     sample_flow(args.raw_file, processed).to_csv(folders["B04"] / "sample_flow.csv", index=False)
     item_diagnostics(processed).to_csv(folders["B03"] / "item_nonresponse_diagnostics.csv", index=False)
@@ -724,6 +868,7 @@ def main() -> None:
     main_table.to_csv(folders["B05"] / "Table2_design_adjusted_association_paths.csv", index=False)
     item_diagnostics(processed).to_csv(folders["B05"] / "Table1_item_response_and_sample_summary.csv", index=False)
     weighted_descriptives(primary).to_csv(folders["B05"] / "TableS0_weighted_descriptive_statistics.csv", index=False)
+    write_weighted_descriptive_note(folders["B05"])
     main_table.assign(inference_class="Fay-BRR 95% CI").to_csv(
         folders["B05"] / "TableS1_primary_design_adjusted_paths.csv", index=False
     )
@@ -739,7 +884,8 @@ def main() -> None:
     ).to_csv(folders["B05"] / "TableS3_missingness_and_complete_case_sensitivity.csv", index=False)
     mi_summary.to_csv(folders["B05"] / "TableS4_multiple_imputation_design_brr.csv", index=False)
     manifest = pd.DataFrame([
-        {"artifact": "B05/TableS0_weighted_descriptive_statistics.csv", "status": "weighted descriptive statistics; no CI"},
+        {"artifact": "B05/TableS0_weighted_descriptive_statistics.csv", "status": "TCHWGT-weighted mean, SD, skewness, and excess kurtosis; no CI"},
+        {"artifact": "B05/TableS0_weighted_descriptive_statistics_note.md", "status": "Table S0 sample and moment-definition note"},
         {"artifact": "B05/TableS1_primary_design_adjusted_paths.csv", "status": "Fay-BRR 95% CI"},
         {"artifact": "B05/TableS2_weighting_and_fixed_effects_comparison.csv", "status": "point estimates only"},
         {"artifact": "B05/TableS3_missingness_and_complete_case_sensitivity.csv", "status": "BRR CI for item-completeness analyses; MNAR point estimates only"},
