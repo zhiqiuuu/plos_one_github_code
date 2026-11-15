@@ -1,0 +1,11 @@
+analysis,parameter,expected_taskbook_coefficient,observed_khb_coefficient,absolute_difference,tolerance,passed
+primary_available_item,total_raw,1.5417220924847053,1.5417220924847053,0.0,1e-06,True
+primary_available_item,total_adjusted,1.7081583978375159,1.7081583978375159,0.0,1e-06,True
+primary_available_item,direct,1.3869881248112819,1.3869881248112819,0.0,1e-06,True
+primary_available_item,indirect,0.321170273026234,0.321170273026234,0.0,1e-06,True
+primary_available_item,rescaling,0.1664363053528106,0.16643630535281062,2.7755575615628914e-17,1e-06,True
+strict_complete_case,total_raw,1.5639773810841924,1.5639773810841924,0.0,1e-06,True
+strict_complete_case,total_adjusted,1.7513663249691145,1.7513663249691145,0.0,1e-06,True
+strict_complete_case,direct,1.3862886054464232,1.3862886054464232,0.0,1e-06,True
+strict_complete_case,indirect,0.3650777195226913,0.3650777195226913,0.0,1e-06,True
+strict_complete_case,rescaling,0.1873889438849221,0.1873889438849221,0.0,1e-06,True

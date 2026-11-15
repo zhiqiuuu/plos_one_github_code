@@ -1,0 +1,5 @@
+model,n_unweighted,n_design_columns,matrix_rank,rank_deficient,fit_status,fit_warnings,separation_or_convergence_issue
+A0,72000,57,57,False,converged,,False
+A1,72000,58,58,False,converged,,False
+B0,84770,56,56,False,converged,,False
+B1,84770,59,59,False,converged,,False

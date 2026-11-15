@@ -1,0 +1,3 @@
+parameter,A0_estimate,A1_estimate,absolute_change_A1_minus_A0,percent_change_from_A0,interpretation
+ai_training,1.3869881248112819,1.3526302344831223,-0.03435789032815961,-2.4771582188444805,same-sample descriptive coefficient change; not a causal effect
+mediator,1.1591805215668596,1.1733371187732868,0.014156597206427257,1.2212590656105784,same-sample descriptive coefficient change; not a causal effect

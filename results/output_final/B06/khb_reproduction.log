@@ -1,0 +1,44 @@
+2026-11-14T20:47:02.043055+00:00Z started KHB taskbook analysis from external restricted TALIS microdata
+2026-11-14T20:47:17.458460+00:00Z starting primary_available_item KHB point estimate and BRR analysis
+2026-11-14T20:47:51.455133+00:00Z primary_available_item: completed BRR replicate 5/100
+2026-11-14T20:48:25.519617+00:00Z primary_available_item: completed BRR replicate 10/100
+2026-11-14T20:48:57.307332+00:00Z primary_available_item: completed BRR replicate 15/100
+2026-11-14T20:49:35.282963+00:00Z primary_available_item: completed BRR replicate 20/100
+2026-11-14T20:50:12.593188+00:00Z primary_available_item: completed BRR replicate 25/100
+2026-11-14T20:50:42.388268+00:00Z primary_available_item: completed BRR replicate 30/100
+2026-11-14T20:51:11.833823+00:00Z primary_available_item: completed BRR replicate 35/100
+2026-11-14T20:51:50.344669+00:00Z primary_available_item: completed BRR replicate 40/100
+2026-11-14T20:52:21.972906+00:00Z primary_available_item: completed BRR replicate 45/100
+2026-11-14T20:52:51.995143+00:00Z primary_available_item: completed BRR replicate 50/100
+2026-11-14T20:53:28.970369+00:00Z primary_available_item: completed BRR replicate 55/100
+2026-11-14T20:53:59.855962+00:00Z primary_available_item: completed BRR replicate 60/100
+2026-11-14T20:54:31.930423+00:00Z primary_available_item: completed BRR replicate 65/100
+2026-11-14T20:55:17.437764+00:00Z primary_available_item: completed BRR replicate 70/100
+2026-11-14T20:55:53.963925+00:00Z primary_available_item: completed BRR replicate 75/100
+2026-11-14T20:56:28.056596+00:00Z primary_available_item: completed BRR replicate 80/100
+2026-11-14T20:57:02.265852+00:00Z primary_available_item: completed BRR replicate 85/100
+2026-11-14T20:57:38.060305+00:00Z primary_available_item: completed BRR replicate 90/100
+2026-11-14T20:58:08.262562+00:00Z primary_available_item: completed BRR replicate 95/100
+2026-11-14T20:58:37.466368+00:00Z primary_available_item: completed BRR replicate 100/100
+2026-11-14T20:58:37.600518+00:00Z starting strict_complete_case KHB point estimate and BRR analysis
+2026-11-14T20:59:19.533406+00:00Z strict_complete_case: completed BRR replicate 5/100
+2026-11-14T20:59:46.779342+00:00Z strict_complete_case: completed BRR replicate 10/100
+2026-11-14T21:00:16.599107+00:00Z strict_complete_case: completed BRR replicate 15/100
+2026-11-14T21:00:42.043198+00:00Z strict_complete_case: completed BRR replicate 20/100
+2026-11-14T21:01:06.661743+00:00Z strict_complete_case: completed BRR replicate 25/100
+2026-11-14T21:01:31.349596+00:00Z strict_complete_case: completed BRR replicate 30/100
+2026-11-14T21:01:58.720037+00:00Z strict_complete_case: completed BRR replicate 35/100
+2026-11-14T21:02:26.828019+00:00Z strict_complete_case: completed BRR replicate 40/100
+2026-11-14T21:02:51.107119+00:00Z strict_complete_case: completed BRR replicate 45/100
+2026-11-14T21:03:15.578799+00:00Z strict_complete_case: completed BRR replicate 50/100
+2026-11-14T21:03:46.207613+00:00Z strict_complete_case: completed BRR replicate 55/100
+2026-11-14T21:04:35.242226+00:00Z strict_complete_case: completed BRR replicate 60/100
+2026-11-14T21:05:04.568620+00:00Z strict_complete_case: completed BRR replicate 65/100
+2026-11-14T21:05:30.030363+00:00Z strict_complete_case: completed BRR replicate 70/100
+2026-11-14T21:05:54.427332+00:00Z strict_complete_case: completed BRR replicate 75/100
+2026-11-14T21:06:18.955042+00:00Z strict_complete_case: completed BRR replicate 80/100
+2026-11-14T21:06:56.901232+00:00Z strict_complete_case: completed BRR replicate 85/100
+2026-11-14T21:07:26.097148+00:00Z strict_complete_case: completed BRR replicate 90/100
+2026-11-14T21:07:50.746691+00:00Z strict_complete_case: completed BRR replicate 95/100
+2026-11-14T21:08:15.376066+00:00Z strict_complete_case: completed BRR replicate 100/100
+2026-11-14T21:08:18.205692+00:00Z completed KHB taskbook analysis with 100 converged Fay-BRR replicates per analysis

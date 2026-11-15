@@ -1,0 +1,3 @@
+analysis,observed_n,expected_n,passed
+primary_available_item,72000,72000,True
+strict_complete_case,60447,60447,True

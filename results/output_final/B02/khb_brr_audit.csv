@@ -1,0 +1,11 @@
+analysis,parameter,expected_replicates,converged_replicates,failed_replicates,complete_fay_brr
+primary_available_item,total_raw,100,100,0,True
+primary_available_item,total_adjusted,100,100,0,True
+primary_available_item,direct,100,100,0,True
+primary_available_item,indirect,100,100,0,True
+primary_available_item,rescaling,100,100,0,True
+strict_complete_case,total_raw,100,100,0,True
+strict_complete_case,total_adjusted,100,100,0,True
+strict_complete_case,direct,100,100,0,True
+strict_complete_case,indirect,100,100,0,True
+strict_complete_case,rescaling,100,100,0,True

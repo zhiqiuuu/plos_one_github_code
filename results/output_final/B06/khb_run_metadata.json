@@ -1,0 +1,30 @@
+{
+  "analysis": "KHB-style logistic-coefficient decomposition",
+  "analysis_timestamp_utc": "2026-11-14T21:08:15.669608+00:00",
+  "git_revision": "8287f838d66800e1342e2d72686fb6f892cb1508",
+  "git_worktree_status": "clean",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "statsmodels": "0.14.4",
+  "raw_file_name": "ttgintt4.csv",
+  "raw_file_sha256": "ae069c728b7aae58feab71f6449a2927dcf0453dec023d8d99e5c689f5b1c100",
+  "processed_file_sha256": "24217ca5dbc67228c8d57cdc4d4d51ac9decbc2c22a2a8838ef9d85148facebd",
+  "source_file_sha256": {
+    "code/01_data_preparation.py": "6e57f759dd187055c29349322315a217bd798dae5b3e11394ad0b893786865fc",
+    "code/run_all.py": "6260e573b45b1ded82706972ee2105027dc366b5c38825d088c00d5c78dd9cc0",
+    "code/run_revision_package.py": "7c3713b81b7108cd31bef15b8168ca846466ed0f73619ad81a790128747fa907",
+    "code/run_khb_design.py": "faa3df54c5a4b407f6a347f0c7e4cee841e07220e91d16c59f014e0b758dacbc",
+    "code/run_nonresponse_indicator.py": "e2b4df219c9676921c4b4a8331e94229948d7cd84b91e4794462bf7e3fedac83",
+    "code/generate_design_adjusted_figure.py": "124f5f764a2aa36ae299aa1aefa119e79fb473a2260d1f6de29ebe304824f901",
+    "code/export_public_aggregates.py": "8331300a56c9e998b57d7ac6a7a222ce82f13c3e53d41d5bc9e61dcffee89720",
+    "environment/requirements.lock": "b8c14999ff34b9cbb525e68c6b47f4fd84c646d6821a597fe04878bcc96a24ea"
+  },
+  "seed_recorded": 20261115,
+  "n_replicates": 100,
+  "fay_factor": 0.5,
+  "replicate_failure_count": 0,
+  "analyses": {
+    "primary_available_item": 72000,
+    "strict_complete_case": 60447
+  }
+}

@@ -8,3 +8,10 @@ B01/main_paths_brr.csv,final_design_adjusted_association_paths
 B03/missing_data_sensitivity.csv,sensitivity
 B03/multiple_imputation_design_brr.csv,sensitivity_design_variance_combined
 B02/association_only_decision.md,author_decision_pending_for_quantitative_mediation
+B02/khb_primary_brr.csv,KHB-style decomposition; Fay-BRR 95% CI
+B02/khb_complete_case_brr.csv,KHB-style decomposition; Fay-BRR 95% CI
+B02/khb_replicate_estimates.csv,100 replicate coefficient estimates per sample
+B05/TableS5_KHB.csv,KHB statistical decomposition; not causal mediation
+B03/nonresponse_indicator_models_brr.csv,Q35 code-5 sensitivity; Fay-BRR 95% CI
+B03/nonresponse_indicator_replicates.csv,100 replicate coefficient estimates per model
+B05/TableS6_nonresponse_indicator.csv,Q35 nonresponse sensitivity; Fay-BRR 95% CI
